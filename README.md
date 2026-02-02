@@ -8,4 +8,4 @@ A Telegram bot that downloads audio/video from various platforms using yt-dlp.
 - 📊 Quality selection
 - 🆓 Free hosting on Render.com
 
-*Bot link:* `t.me/MediaGrabPro_bot`
+**Bot link:** `t.me/MediaGrabPro_bot`
