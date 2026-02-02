@@ -1,0 +1,5 @@
+python-telegram-bot
+yt-dlp
+python-dotenv
+ffmpeg-python
+psutil
