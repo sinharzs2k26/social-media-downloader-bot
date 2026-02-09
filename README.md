@@ -1,6 +1,6 @@
-# Telegram YT-DLP Bot
+# Telegram Social Media Downloader Bot
 
-A Telegram bot that downloads audio/video from various platforms using yt-dlp.
+A Telegram bot that downloads audio/video from various social platforms using yt-dlp.
 
 ## Features
 - 📥 Download videos from 1000+ sites
@@ -8,4 +8,4 @@ A Telegram bot that downloads audio/video from various platforms using yt-dlp.
 - 📊 Quality selection
 - 🆓 Free hosting on Render.com
 
-**Bot link:** `t.me/MediaGrabPro_bot`
+**Bot link:** `t.me/AnySocialMediaDownload_bot`
