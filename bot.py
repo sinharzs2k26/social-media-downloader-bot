@@ -51,7 +51,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     welcome_message = (
         f"👋 Hello {user.first_name}!\n\n"
         "🎬 I can download audio/video from various social platforms.\n\n"
-        "📝 **How to use:**\n"
+        "📝 How to use:\n"
         "1. Send me a link (Facebook, Instagram, TikTok, etc.)\n"
         "2. I'll show available formats\n"
         "3. Choose your preferred quality\n\n"
@@ -65,28 +65,28 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # Cookies info command
 async def cookies_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     cookies_info = (
-        "🍪 **YouTube Login/Cookies Issue**\n\n"
+        "🍪 YouTube Login/Cookies Issue\n\n"
         "Some YouTube videos require login or show 'Sign in to confirm you're not a bot'.\n\n"
-        "**Solutions:**\n"
-        "1. **Try again later** - Sometimes it's temporary\n"
-        "2. **Use different quality** - Lower qualities often work\n"
-        "3. **Try another video** - Not all videos have this issue\n"
-        "4. **Use alternative sites** - Many videos are on multiple platforms\n\n"
-        "**For developers:**\n"
+        "Solutions:\n"
+        "1. Try again later - Sometimes it's temporary\n"
+        "2. Use different quality - Lower qualities often work\n"
+        "3. Try another video - Not all videos have this issue\n"
+        "4. Use alternative sites - Many videos are on multiple platforms\n\n"
+        "For developers:\n"
         "You can use cookies with yt-dlp using:\n"
         "--cookies-from-browser chrome\n\n"
-        "**Note:** This bot runs on a server and cannot use browser cookies."
+        "Note: This bot runs on a server and cannot use browser cookies."
     )
     await update.message.reply_text(cookies_info)
 
 # Help command
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     help_text = (
-        "📚 **Help Guide**\n\n"
-        "1. **Send a URL**: Just paste any supported video/audio link\n"
-        "2. **Choose Format**: I'll show available formats\n"
-        "3. **Select Quality**: Choose from the buttons\n\n"
-        "⚠️ **Important Notes:**\n"
+        "📚 Help Guide\n\n"
+        "1. Send a URL: Just paste any supported video/audio link\n"
+        "2. Choose Format: I'll show available formats\n"
+        "3. Select Quality: Choose from the buttons\n\n"
+        "⚠️ Important Notes:\n"
         "• Large files may take time to upload\n"
         "• Some sites have download restrictions\n"
         "• Maximum file size: 50MB (Telegram API limit)"
@@ -331,12 +331,12 @@ async def handle_url(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         duration_str = format_duration(info.get('duration'))
         
-        message = f"🎬 **{title}**\n⏱ Duration: {duration_str}\n\n"
+        message = f"🎬 {title}\n⏱ Duration: {duration_str}\n\n"
         
         if is_youtube:
-            message += "⚠️ **YouTube Note:** Some videos may require login. If download fails, try 'Low Quality' option.\n\n"
+            message += "⚠️ YouTube Note: Some videos may require login. If download fails, try 'Low Quality' option.\n\n"
         
-        message += "👇 **Select a format:**"
+        message += "👇 Select a format:"
         
         await processing_msg.edit_text(message, reply_markup=reply_markup)
         
@@ -345,9 +345,9 @@ async def handle_url(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         if error_type == "youtube_bot_detection":
             error_message = (
-                "❌ **YouTube Bot Detection**\n\n"
+                "❌ YouTube Bot Detection\n\n"
                 "YouTube is asking to 'Sign in to confirm you're not a bot'.\n\n"
-                "**Solutions:**\n"
+                "Solutions:\n"
                 "1. Try the 'Low Quality' option (often works)\n"
                 "2. Try again later\n"
                 "3. Use /cookies command for more info\n"
@@ -387,7 +387,7 @@ async def show_audio_options(update: Update, info: Dict, message):
     reply_markup = InlineKeyboardMarkup(keyboard)
     
     title = info.get('title', 'Audio Content')[:100]
-    message_text = f"🎵 **{title}**\n\nSelect audio format:"
+    message_text = f"🎵 {title}\n\nSelect audio format:"
     
     await message.edit_text(message_text, reply_markup=reply_markup)
 
@@ -501,17 +501,17 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     if data == 'youtube_help':
         help_text = (
-            "🆘 **YouTube Download Help**\n\n"
-            "**Common Issues:**\n"
-            "1. **'Sign in to confirm you're not a bot'** - YouTube bot detection\n"
-            "2. **Age-restricted content** - Requires YouTube login\n"
-            "3. **Private/Members-only videos** - Cannot be downloaded\n\n"
-            "**Solutions:**\n"
+            "🆘 YouTube Download Help\n\n"
+            "Common Issues:\n"
+            "1. 'Sign in to confirm you're not a bot' - YouTube bot detection\n"
+            "2. Age-restricted content - Requires YouTube login\n"
+            "3. Private/Members-only videos - Cannot be downloaded\n\n"
+            "Solutions:\n"
             "✅ Try 'Low Quality' option (often bypasses detection)\n"
             "✅ Try again in a few hours\n"
             "✅ Use alternative video sites if available\n"
             "❌ Browser cookies cannot be used on server\n\n"
-            "**Why this happens:**\n"
+            "Why this happens:\n"
             "YouTube detects automated downloads and may block them.\n"
             "This is a limitation of server-based downloaders."
         )
@@ -579,13 +579,13 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         if error_type == "youtube_bot_detection_download":
             error_message = (
-                "❌ **YouTube Bot Detection During Download**\n\n"
+                "❌ YouTube Bot Detection During Download\n\n"
                 "YouTube blocked the download.\n\n"
-                "**Try this:**\n"
+                "Try this:\n"
                 "1. Select 'Low Quality' option (most likely to work)\n"
                 "2. Wait a few hours and try again\n"
                 "3. The video might be temporarily blocked\n\n"
-                "**Note:** This is a YouTube limitation, not a bot issue."
+                "Note: This is a YouTube limitation, not a bot issue."
             )
             keyboard = [
                 [InlineKeyboardButton("⚡ Try Low Quality", callback_data='worst')],
