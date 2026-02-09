@@ -50,21 +50,17 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     welcome_message = (
         f"👋 Hello {user.first_name}!\n\n"
-        "🎬 I can download audio/video from various platforms.\n\n"
+        "🎬 I can download audio/video from various social platforms.\n\n"
         "📝 **How to use:**\n"
-        "1. Send me a link (YouTube, Instagram, TikTok, etc.)\n"
+        "1. Send me a link (Facebook, Instagram, TikTok, etc.)\n"
         "2. I'll show available formats\n"
         "3. Choose your preferred quality\n\n"
-        "⚠️ **Note about YouTube:**\n"
-        "• Some YouTube videos may require login\n"
-        "• Use /cookies command if you have login issues\n\n"
         "⚙️ Commands:\n"
         "/start - Show this message\n"
         "/help - Get help\n"
-        "/cookies - Info about YouTube login issues\n"
         "/cancel - Cancel current operation"
     )
-    await update.message.reply_text(welcome_message, parse_mode='Markdown')
+    await update.message.reply_text(welcome_message)
 
 # Cookies info command
 async def cookies_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -78,10 +74,10 @@ async def cookies_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "4. **Use alternative sites** - Many videos are on multiple platforms\n\n"
         "**For developers:**\n"
         "You can use cookies with yt-dlp using:\n"
-        "`--cookies-from-browser chrome`\n\n"
+        "--cookies-from-browser chrome\n\n"
         "**Note:** This bot runs on a server and cannot use browser cookies."
     )
-    await update.message.reply_text(cookies_info, parse_mode='Markdown')
+    await update.message.reply_text(cookies_info)
 
 # Help command
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -93,15 +89,9 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "⚠️ **Important Notes:**\n"
         "• Large files may take time to upload\n"
         "• Some sites have download restrictions\n"
-        "• Maximum file size: 50MB (Telegram free limit)\n"
-        "• YouTube may block some videos (use /cookies for info)\n\n"
-        "❓ **Having issues?**\n"
-        "• Make sure the link is accessible\n"
-        "• Try different quality options\n"
-        "• Some videos may be age-restricted\n"
-        "• Try the 'Fastest (Lowest Quality)' option"
+        "• Maximum file size: 50MB (Telegram API limit)"
     )
-    await update.message.reply_text(help_text, parse_mode='Markdown')
+    await update.message.reply_text(help_text)
 
 # Cancel command
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -348,7 +338,7 @@ async def handle_url(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         message += "👇 **Select a format:**"
         
-        await processing_msg.edit_text(message, reply_markup=reply_markup, parse_mode='Markdown')
+        await processing_msg.edit_text(message, reply_markup=reply_markup)
         
     except Exception as e:
         error_type = str(e)
@@ -369,7 +359,7 @@ async def handle_url(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 [InlineKeyboardButton("❌ Cancel", callback_data='cancel')]
             ]
             reply_markup = InlineKeyboardMarkup(keyboard)
-            await processing_msg.edit_text(error_message, reply_markup=reply_markup, parse_mode='Markdown')
+            await processing_msg.edit_text(error_message, reply_markup=reply_markup)
         
         elif error_type == "youtube_private":
             await processing_msg.edit_text("❌ This YouTube video is private.")
@@ -399,7 +389,7 @@ async def show_audio_options(update: Update, info: Dict, message):
     title = info.get('title', 'Audio Content')[:100]
     message_text = f"🎵 **{title}**\n\nSelect audio format:"
     
-    await message.edit_text(message_text, reply_markup=reply_markup, parse_mode='Markdown')
+    await message.edit_text(message_text, reply_markup=reply_markup)
 
 async def download_file(url: str, format_spec: str, temp_dir: str, is_youtube: bool = False) -> List[str]:
     """Download file using yt-dlp with anti-bot measures"""
@@ -525,7 +515,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "YouTube detects automated downloads and may block them.\n"
             "This is a limitation of server-based downloaders."
         )
-        await query.edit_message_text(help_text, parse_mode='Markdown')
+        await query.edit_message_text(help_text)
         return
     
     user_session = get_user_session(user_id)
@@ -603,7 +593,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 [InlineKeyboardButton("❌ Cancel", callback_data='cancel')]
             ]
             reply_markup = InlineKeyboardMarkup(keyboard)
-            await query.edit_message_text(error_message, reply_markup=reply_markup, parse_mode='Markdown')
+            await query.edit_message_text(error_message, reply_markup=reply_markup)
         
         elif error_type == "youtube_help_clicked":
             # Already handled above
